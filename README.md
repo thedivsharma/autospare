@@ -30,7 +30,7 @@ This project helps you:
 - Java (Spring Boot)
 - Spring MVC
 - Spring Data JPA
-- MySQL (or H2 if not configured)
+- MySQL 
 - Thymeleaf (for frontend)
 - Maven
 
