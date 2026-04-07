@@ -4,4 +4,4 @@ target/
 *.jar
 *.war
 node_modules/
-.env
+.env.DS_Store
