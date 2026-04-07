@@ -1,12 +1,16 @@
 # AutoSpare
 
 A simple Spring Boot web application to manage automobile spare parts and suppliers.
-Made with love , for you , by
-Divyansh Sharma – PES2UG23CS181
-Dhruv Maheshwari - PES2UG23CS173
-Gautam Menon - PES2UG23CS196
-C. Vishwa - PES2UG23CS139
 
+---
+
+## With love , from
+
+
+- Divyansh Sharma (PES2UG23CS181)
+- Dhruv Maheshwari (PES2UG23CS173)
+- Gautam Menon (PES2UG23CS196)
+- C. Vishwa (PES2UG23CS139)
 
 ---
 
