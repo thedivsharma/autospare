@@ -1,0 +1,10 @@
+com/autospare/service/PartService.class
+com/autospare/controller/SupplierController.class
+com/autospare/repository/SupplierRepository.class
+com/autospare/model/Part.class
+com/autospare/controller/HomeController.class
+com/autospare/controller/PartController.class
+com/autospare/service/SupplierService.class
+com/autospare/repository/PartRepository.class
+com/autospare/AutoSpareApplication.class
+com/autospare/model/Supplier.class
