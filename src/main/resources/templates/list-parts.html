@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>AutoSpare</title>
 
@@ -21,11 +23,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .title {
             font-size: 28px;
             font-weight: 600;
+        }
+
+        .right-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .welcome {
+            color: #aaa;
+            font-size: 14px;
         }
 
         .btn {
@@ -34,6 +50,7 @@
             text-decoration: none;
             font-size: 14px;
             transition: 0.3s;
+            display: inline-block;
         }
 
         .btn-add {
@@ -45,11 +62,21 @@
             background-color: #ddd;
         }
 
+        .btn-logout {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            opacity: 0.9;
+        }
+
         .card {
             margin-top: 30px;
             background: #1a1a1a;
             border-radius: 16px;
             padding: 20px;
+            overflow-x: auto;
         }
 
         table {
@@ -91,6 +118,11 @@
         .delete {
             color: #ef4444;
         }
+
+        .buy {
+            color: #22c55e;
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -99,43 +131,82 @@
 <div class="container">
 
     <div class="header">
+
         <div class="title">AutoSpare Inventory</div>
-        <a href="/parts/add" class="btn btn-add">+ Add Part</a>
+
+        <div class="right-box">
+
+            <span class="welcome" sec:authorize="isAuthenticated()">
+                Welcome, <span sec:authentication="name"></span>
+            </span>
+
+            <a href="/parts/add"
+               class="btn btn-add"
+               sec:authorize="hasAnyRole('ADMIN','SELLER')">
+                + Add Part
+            </a>
+
+            <a href="/logout" class="btn btn-logout">
+                Logout
+            </a>
+
+        </div>
+
     </div>
 
     <div class="card">
 
         <table>
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                    <th>Price (₹)</th>
-                    <th>Action</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price (₹)</th>
+                <th sec:authorize="hasAnyRole('ADMIN','SELLER')">Action</th>
+                <th sec:authorize="hasRole('CUSTOMER')">Buy</th>
+            </tr>
             </thead>
 
             <tbody>
-                <tr th:each="part : ${parts}">
-                    <td th:text="${part.id}"></td>
-                    <td th:text="${part.name}"></td>
-                    <td th:text="${part.category}"></td>
+            <tr th:each="part : ${parts}">
 
-                    <!-- LOW STOCK STYLE -->
-                    <td th:text="${part.quantity}"
-                        th:classappend="${part.quantity < 10} ? 'low-stock' : ''">
-                    </td>
+                <td th:text="${part.id}"></td>
+                <td th:text="${part.name}"></td>
+                <td th:text="${part.category}"></td>
 
-                    <td th:text="${#numbers.formatDecimal(part.price,0,0)}"></td>
+                <td th:text="${part.quantity}"
+                    th:classappend="${part.quantity < 10} ? 'low-stock' : ''">
+                </td>
 
-                    <td class="action">
-                        <a th:href="@{'/parts/edit/' + ${part.id}}" class="edit">Edit</a>
-                        <a th:href="@{'/parts/delete/' + ${part.id}}" class="delete"
-                           onclick="return confirm('Delete this item?');">Delete</a>
-                    </td>
-                </tr>
+                <td th:text="${#numbers.formatDecimal(part.price,0,0)}"></td>
+
+                <!-- ADMIN / SELLER -->
+                <td class="action"
+                    sec:authorize="hasAnyRole('ADMIN','SELLER')">
+
+                    <a th:href="@{'/parts/edit/' + ${part.id}}"
+                       class="edit"
+                       sec:authorize="hasAnyRole('ADMIN','SELLER')">
+                        Edit
+                    </a>
+
+                    <a th:href="@{'/parts/delete/' + ${part.id}}"
+                       class="delete"
+                       sec:authorize="hasRole('ADMIN')"
+                       onclick="return confirm('Delete this item?');">
+                        Delete
+                    </a>
+
+                </td>
+
+                <!-- CUSTOMER -->
+                <td sec:authorize="hasRole('CUSTOMER')">
+                    <a href="#" class="buy">Buy Now</a>
+                </td>
+
+            </tr>
             </tbody>
 
         </table>
