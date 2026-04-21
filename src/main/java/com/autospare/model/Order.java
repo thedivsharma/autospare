@@ -1,41 +1,61 @@
 package com.autospare.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
+
+    private String customerName;
+    private String itemName;
+    private int quantity;
+    private double total;
     private String status;
-    private List<OrderItem> items = new ArrayList<>();
+    private LocalDateTime orderDate;
 
     public Order() {
     }
 
-    public Order(Long orderId, String status) {
-        this.orderId = orderId;
+    public Order(String customerName, String itemName, int quantity,
+                 double total, String status, LocalDateTime orderDate) {
+        this.customerName = customerName;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.total = total;
         this.status = status;
-    }
-
-    public void addItem(OrderItem item) {
-        items.add(item);
-    }
-
-    public double calculateTotal() {
-        return items.stream()
-                .mapToDouble(OrderItem::getSubtotal)
-                .sum();
+        this.orderDate = orderDate;
     }
 
     public Long getOrderId() {
         return orderId;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
     public String getStatus() {
         return status;
     }
 
-    public List<OrderItem> getItems() {
-        return items;
+    public LocalDateTime getOrderDate() {
+        return orderDate;
     }
 }

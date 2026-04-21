@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reports</title>
+    <style>
+        body{background:#111;color:white;font-family:Arial;padding:40px}
+        .box{background:#1a1a1a;padding:25px;border-radius:14px;max-width:700px}
+        .row{padding:12px 0;border-bottom:1px solid #333}
+        a{color:white;text-decoration:none;display:inline-block;margin-top:20px}
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+<h1>📄 System Reports</h1>
+
+<div class="row">Total Parts: <span th:text="${totalParts}"></span></div>
+
+<div class="row">Low Stock Items: <span th:text="${lowStock}"></span></div>
+
+<div class="row">
+Total Inventory Value ₹:
+<span th:text="${#numbers.formatDecimal(totalValue,0,0)}"></span>
+</div>
+
+<div class="row">Sales Report: Available</div>
+
+<div class="row">Supplier Report: Available</div>
+
+<a href="/parts/dashboard">Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

@@ -1,7 +1,9 @@
 package com.autospare.controller;
 
 import com.autospare.model.Invoice;
+import com.autospare.model.Order;
 import com.autospare.model.Part;
+import com.autospare.repository.OrderRepository;
 import com.autospare.service.PartService;
 
 import java.time.LocalDateTime;
@@ -16,9 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class PartController {
 
     private final PartService partService;
+    private final OrderRepository orderRepository;
 
-    public PartController(PartService partService) {
+    public PartController(PartService partService,
+                          OrderRepository orderRepository) {
         this.partService = partService;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/add")
@@ -73,6 +78,17 @@ public class PartController {
 
         part.setQuantity(part.getQuantity() - 1);
         partService.savePart(part);
+
+        Order order = new Order(
+                auth.getName(),
+                part.getName(),
+                1,
+                part.getPrice(),
+                "PLACED",
+                LocalDateTime.now()
+        );
+
+        orderRepository.save(order);
 
         Invoice invoice = new Invoice(
                 System.currentTimeMillis(),

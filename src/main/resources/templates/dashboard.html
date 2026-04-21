@@ -25,10 +25,12 @@
         .cards {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .card {
             flex: 1;
+            min-width: 220px;
             background: #1a1a1a;
             padding: 25px;
             border-radius: 16px;
@@ -43,12 +45,36 @@
             color: #ff4d4d;
         }
 
-        .nav {
-            margin-top: 30px;
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 20px;
         }
 
-        a {
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .btn {
+            background: #1a1a1a;
             color: white;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 14px;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #2a2a2a;
+        }
+
+        .logout {
+            margin-top: 30px;
+            display: inline-block;
+            color: #ff4d4d;
             text-decoration: none;
         }
     </style>
@@ -58,9 +84,10 @@
 
 <div class="container">
 
-    <div class="title">📊 Dashboard</div>
+    <div class="title">📊 Admin Dashboard</div>
 
     <div class="cards">
+
         <div class="card">
             Total Parts
             <div class="value" th:text="${totalParts}"></div>
@@ -73,13 +100,29 @@
 
         <div class="card">
             Total Value (₹)
-            <div class="value" th:text="${#numbers.formatDecimal(totalValue,0,0)}"></div>
+            <div class="value"
+                 th:text="${#numbers.formatDecimal(totalValue,0,0)}"></div>
         </div>
+
     </div>
 
-    <div class="nav">
-        <a href="/parts/list">→ Go to Inventory</a>
+    <div class="section-title">System Modules</div>
+
+    <div class="modules">
+
+        <a href="/parts/list" class="btn">📦 Inventory</a>
+
+        <a href="/reports" class="btn">📄 Reports</a>
+
+        <a href="/alerts" class="btn">🚨 Alerts</a>
+
+        <a href="/orders" class="btn">🛒 Orders</a>
+
+        <a href="/suppliers/list" class="btn">🚚 Suppliers</a>
+
     </div>
+
+    <a href="/logout" class="logout">Logout</a>
 
 </div>
 
