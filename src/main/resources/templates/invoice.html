@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Invoice</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#111;
+            color:white;
+            margin:0;
+            padding:40px;
+        }
+
+        .box{
+            max-width:700px;
+            margin:auto;
+            background:#1a1a1a;
+            padding:30px;
+            border-radius:16px;
+        }
+
+        h1{
+            margin-top:0;
+        }
+
+        table{
+            width:100%;
+            margin-top:20px;
+            border-collapse:collapse;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #333;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:25px;
+            padding:10px 18px;
+            background:white;
+            color:black;
+            text-decoration:none;
+            border-radius:20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+    <h1>Purchase Successful</h1>
+
+    <table>
+        <tr>
+            <td>Invoice ID</td>
+            <td th:text="${invoice.invoiceId}"></td>
+        </tr>
+
+        <tr>
+            <td>Customer</td>
+            <td th:text="${invoice.customerName}"></td>
+        </tr>
+
+        <tr>
+            <td>Item</td>
+            <td th:text="${invoice.itemName}"></td>
+        </tr>
+
+        <tr>
+            <td>Price</td>
+            <td>₹ <span th:text="${invoice.price}"></span></td>
+        </tr>
+
+        <tr>
+            <td>Quantity</td>
+            <td th:text="${invoice.quantity}"></td>
+        </tr>
+
+        <tr>
+            <td>Total</td>
+            <td>₹ <span th:text="${invoice.total}"></span></td>
+        </tr>
+
+        <tr>
+            <td>Date</td>
+            <td th:text="${invoice.dateTime}"></td>
+        </tr>
+    </table>
+
+    <a href="/parts/list" class="btn">Back to Store</a>
+
+</div>
+
+</body>
+</html>

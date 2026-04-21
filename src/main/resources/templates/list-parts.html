@@ -203,8 +203,10 @@
 
                 <!-- CUSTOMER -->
                 <td sec:authorize="hasRole('CUSTOMER')">
-                    <a href="#" class="buy">Buy Now</a>
-                </td>
+    <a th:href="@{'/parts/buy/' + ${part.id}}" class="buy">
+        Buy Now
+    </a>
+</td>
 
             </tr>
             </tbody>

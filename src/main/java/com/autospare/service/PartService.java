@@ -26,24 +26,26 @@ public class PartService {
     public void deletePart(Long id) {
         partRepository.deleteById(id);
     }
+
     public Part getPartById(Long id) {
         return partRepository.findById(id).orElse(null);
-}
+    }
+
     public long getTotalParts() {
-    return partRepository.count();
-}
+        return partRepository.count();
+    }
 
-public long getLowStockCount() {
-    return partRepository.findAll()
-            .stream()
-            .filter(p -> p.getQuantity() < 10)
-            .count();
-}
+    public long getLowStockCount() {
+        return partRepository.findAll()
+                .stream()
+                .filter(p -> p.getQuantity() < 10)
+                .count();
+    }
 
-public double getTotalValue() {
-    return partRepository.findAll()
-            .stream()
-            .mapToDouble(p -> p.getPrice() * p.getQuantity())
-            .sum();
-}
+    public double getTotalValue() {
+        return partRepository.findAll()
+                .stream()
+                .mapToDouble(p -> p.getPrice() * p.getQuantity())
+                .sum();
+    }
 }
